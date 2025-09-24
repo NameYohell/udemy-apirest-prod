@@ -6,7 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -31,63 +35,4 @@ public class Usuario {
 
     @Column(name = "zona_horaria", length = 30)
     private String zonaHoraria;
-
-    public Usuario() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getEmailUsuario() {
-        return emailUsuario;
-    }
-
-    public void setEmailUsuario(String emailUsuario) {
-        this.emailUsuario = emailUsuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getIdioma() {
-        return idioma;
-    }
-
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
-
-    public String getZonaHoraria() {
-        return zonaHoraria;
-    }
-
-    public void setZonaHoraria(String zonaHoraria) {
-        this.zonaHoraria = zonaHoraria;
-    }
 }
