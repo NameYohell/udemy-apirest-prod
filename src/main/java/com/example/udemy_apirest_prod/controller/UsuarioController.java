@@ -2,6 +2,7 @@ package com.example.udemy_apirest_prod.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,10 +53,17 @@ public class UsuarioController {
 
     //PUT http://localhost:8081/usuarios/{id}
     //Peticion PUT para actualizar usuario por ID
-    @PostMapping("/update")
-    public Usuario update(@RequestBody Usuario usuario){
-        return usuarioService.update(usuario);
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody Usuario usuario) {
+    Optional<Usuario> usuarioOptional = usuarioService.findById(id);
+    if (usuarioOptional.isPresent()) {
+        usuario.setId(id); // Asegura que se actualice el usuario correcto
+        return ResponseEntity.ok(usuarioService.update(usuario));
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
+
 
     //DELETE http://localhost:8081/usuarios/{id}
     //Peticion DELETE para borrar usuario por ID
