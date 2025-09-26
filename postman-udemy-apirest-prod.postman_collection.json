@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "057466ad-594d-4e34-80e6-3496964350bc",
+		"name": "ApieRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48539531",
+		"_collection_link": "https://yoheldesarrollador-6584067.postman.co/workspace/yohel-vasquez's-Workspace~3e7052d9-57fa-4aa0-87df-26d2f7738a62/collection/48539531-057466ad-594d-4e34-80e6-3496964350bc?action=share&source=collection_link&creator=48539531"
+	},
+	"item": [
+		{
+			"name": "graba-Usuario",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"apellidos\": \"vasquez espinoza\",\r\n    \"emailUsuario\": \"yohel@email.com\",\r\n    \"idioma\": \"Español\",\r\n    \"nombre\": \"yohel alfredo\",\r\n    \"nombreUsuario\": \"NameYohel\",\r\n    \"zonaHoraria\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListarUsuario",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar-Usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombreUsuario\": \"yohel_actualizado\",\r\n  \"emailUsuario\": \"yohel@nuevoemail.com\",\r\n  \"nombre\": \"Yohel\",\r\n  \"apellidos\": \"González\",\r\n  \"idioma\": \"Inglés\",\r\n  \"zonaHoraria\": \"America/Santiago\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/usuarios/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"usuarios",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar-Usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar-Comentario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"textoComentario\": \"Este es un comentario de prueba\",\r\n  \"fechaComentario\": \"2025-09-25T18:30:00\",\r\n  \"candidatosId\": 101,\r\n  \"usuario\": {\r\n    \"id\": 2\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/comentarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"comentarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar-Comentario-UsuarioDTO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"nombreUsuario\": \"yohel_dev\",\r\n    \"emailUsuario\": \"yohel@example.com\",\r\n    \"textoComentario\": \"Este es un comentario de prueba\",\r\n    \"fechaComentario\": \"2025-09-25T18:30:00\"\r\n  }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/comentarios/dto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"comentarios",
+						"dto"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

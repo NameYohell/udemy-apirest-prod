@@ -66,5 +66,18 @@ phpMyAdmin disponible en http://localhost:8080
 
 Usuario DB: root, contraseña: mipasswordsegura
 
+## 🧪 Pruebas con Postman
+
+Se incluye una colección de Postman para probar todos los endpoints del proyecto.
+
+📁 Ruta: `postman-udemy-apirest-prod.postman_collection.json`
+
+Importa el archivo en Postman y ejecuta las peticiones directamente. Incluye pruebas para:
+
+- Usuarios (`GET`, `POST`)
+- Comentarios (`GET`, `POST`)
+- Comentarios con DTO (`GET /comentarios/dto`)
+
+
 📌 Entrega semana 1
 ✅ Proyecto funcional ✅ DTO implementado ✅ Docker operativo ✅ Código versionado en GitHub ✅ Documentación clara
