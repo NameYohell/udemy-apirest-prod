@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import java.util.List;
+
+import com.example.udemy_apirest_prod.dto.ComentarioUsuarioDTO;
 import com.example.udemy_apirest_prod.entity.Comentario;
 import com.example.udemy_apirest_prod.service.ComentarioService;
 
@@ -32,4 +34,9 @@ public class ComentarioController {
         comentarioService.deleteById(id);
         return ResponseEntity.ok("Comentario eliminado correctamente");
     }
+    @GetMapping("/dto")
+    public ResponseEntity<List<ComentarioUsuarioDTO>> obtenerComentariosConUsuario() {
+    return ResponseEntity.ok(comentarioService.obtenerComentariosConUsuario());
+    }
+
 }
