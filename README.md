@@ -1,56 +1,109 @@
-Proyecto Semana 1
-markdown
-# udemy-apirest-prod
+# Udemy API REST Prod
 
-Proyecto backend desarrollado con Spring Boot como parte del curso de Udemy. Esta entrega corresponde a la **semana 1**, donde se implementa una API REST básica con entidades relacionadas, conexión a base de datos, y despliegue con Docker.
+Proyecto backend desarrollado con Spring Boot como parte del curso de Udemy. API REST completa con entidades relacionadas, conexión a base de datos MySQL, y despliegue con Docker.
 
 ## 🚀 Tecnologías utilizadas
 
 - Java 21
-- Spring Boot
-- JPA / Hibernate
-- MySQL 8
+- Spring Boot 3.5.6
+- Spring Data JPA / Hibernate
+- MySQL 8.0
 - Docker & Docker Compose
 - Maven Wrapper (`./mvnw`)
+- Lombok
 - Postman (para pruebas)
 
 ## 📦 Estructura del proyecto
 
 - `entity/`: Modelos `Usuario` y `Comentario`
-- `repository/`: Interfaces JPA
+- `repository/`: Interfaces JPA para acceso a datos
 - `service/`: Lógica de negocio
 - `controller/`: Endpoints REST
 - `dto/`: `ComentarioUsuarioDTO` para respuestas personalizadas
 
-## 🐳 Cómo levantar el entorno
+## 🐳 Despliegue con Docker (Recomendado)
 
-1. Compilar el proyecto:
-   ```bash
-   ./mvnw clean package
-Levantar contenedores:
+### Prerequisitos
+- Docker
+- Docker Compose
 
-bash
+### 1. Levantar todo el entorno:
+```bash
 docker-compose up --build
-Ejecutar la app (si no está dockerizada):
+```
 
-bash
-java -jar target/udemy-apirest-prod-0.0.1-SNAPSHOT.jar
+Esto creará y ejecutará:
+- **MySQL** en puerto `3307`
+- **API REST** en puerto `8081`
+- **phpMyAdmin** en puerto `8080`
 
-🧪 Endpoints disponibles
-Usuarios
-GET /usuarios: Listar todos los usuarios
+### 2. Acceder a los servicios:
+- **API REST**: http://localhost:8081
+- **phpMyAdmin**: http://localhost:8080
+  - Servidor: `mysql`
+  - Usuario: `root`
+  - Contraseña: `mipasswordsegura`
 
-POST /usuarios: Crear nuevo usuario
+### Comandos útiles:
+```bash
+# Levantar en segundo plano
+docker-compose up -d
 
-Comentarios
-GET /comentarios: Listar todos los comentarios
+# Ver logs de la aplicación
+docker-compose logs app -f
 
-POST /comentarios: Crear nuevo comentario
+# Parar todos los servicios
+docker-compose down
 
-GET /comentarios/dto: Listar comentarios con datos del usuario (DTO)
+# Limpiar volúmenes (elimina datos de BD)
+docker-compose down -v
+```
 
-Ejemplo de respuesta DTO
-json
+## 🛠️ Desarrollo Local (Sin Docker)
+
+### Prerequisitos
+- Java 21
+- Maven 3.9+
+- MySQL 8.0
+
+### Pasos:
+1. **Crear base de datos:**
+```sql
+CREATE DATABASE `bdd-apirest-prod`;
+```
+
+2. **Configurar `application.properties`:**
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bdd-apirest-prod
+spring.datasource.username=root
+spring.datasource.password=tu_password
+```
+
+3. **Ejecutar aplicación:**
+```bash
+./mvnw spring-boot:run
+```
+
+## 🧪 Endpoints disponibles
+
+### Usuarios
+- `GET /usuarios` - Listar todos los usuarios
+- `GET /usuarios/{id}` - Obtener usuario por ID
+- `POST /usuarios` - Crear nuevo usuario
+- `PUT /usuarios/{id}` - Actualizar usuario
+- `DELETE /usuarios/{id}` - Eliminar usuario
+
+### Comentarios
+- `GET /comentarios` - Listar todos los comentarios
+- `GET /comentarios/{id}` - Obtener comentario por ID
+- `POST /comentarios` - Crear nuevo comentario (JSON)
+- `POST /comentarios/crear?texto=...&usuarioId=...` - Crear comentario con usuario (recomendado)
+- `PUT /comentarios/{id}` - Actualizar comentario
+- `DELETE /comentarios/{id}` - Eliminar comentario
+- `GET /comentarios/dto` - Listar comentarios con datos del usuario (DTO)
+
+### Ejemplo de respuesta DTO:
+```json
 [
   {
     "nombreUsuario": "NameYohel",
@@ -59,24 +112,40 @@ json
     "fechaComentario": "2025-09-25T18:30:00"
   }
 ]
-🧠 Notas
-La base de datos se levanta en Docker, puerto 3307.
-
-phpMyAdmin disponible en http://localhost:8080
-
-Usuario DB: root, contraseña: mipasswordsegura
+```
 
 ## 🧪 Pruebas con Postman
 
-Se incluye una colección de Postman para probar todos los endpoints del proyecto.
+Se incluye una colección de Postman para probar todos los endpoints:
 
-📁 Ruta: `postman-udemy-apirest-prod.postman_collection.json`
+📁 **Archivo**: `postman-udemy-apirest-prod.postman_collection.json`
 
-Importa el archivo en Postman y ejecuta las peticiones directamente. Incluye pruebas para:
+**Para usar:**
+1. Importa el archivo en Postman
+2. Ejecuta las peticiones directamente
 
-- Usuarios (`GET`, `POST`)
-- Comentarios (`GET`, `POST`)
+**Incluye pruebas para:**
+- Usuarios (`GET`, `POST`, `PUT`, `DELETE`)
+- Comentarios (`GET`, `POST`, `PUT`, `DELETE`)
 - Comentarios con DTO (`GET /comentarios/dto`)
+
+## 🐳 Estructura Docker
+
+```
+├── Dockerfile                          # Imagen de la aplicación
+├── docker-compose.yml                 # Orquestación completa
+├── .dockerignore                       # Archivos excluidos
+└── src/main/resources/
+    ├── application.properties          # Config desarrollo
+    └── application-docker.properties   # Config Docker
+```
+
+## 📝 Notas importantes
+
+- La base de datos se ejecuta en puerto `3307` para evitar conflictos
+- Se incluye healthcheck para MySQL para asegurar inicialización correcta
+- La aplicación espera a que MySQL esté listo antes de iniciarse
+- Se usa multi-stage build para optimizar el tamaño de la imagen Docker
 
 
 📌 Entrega semana 1

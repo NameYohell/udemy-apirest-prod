@@ -36,7 +36,15 @@ public class ComentarioController {
     }
     @GetMapping("/dto")
     public ResponseEntity<List<ComentarioUsuarioDTO>> obtenerComentariosConUsuario() {
-    return ResponseEntity.ok(comentarioService.obtenerComentariosConUsuario());
+        return ResponseEntity.ok(comentarioService.obtenerComentariosConUsuario());
+    }
+    
+    @PostMapping("/crear")
+    public ResponseEntity<Comentario> crearComentario(
+            @RequestParam String texto, 
+            @RequestParam Integer usuarioId) {
+        Comentario comentario = comentarioService.crearComentario(texto, usuarioId);
+        return new ResponseEntity<>(comentario, HttpStatus.CREATED);
     }
 
 }

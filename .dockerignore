@@ -1,0 +1,57 @@
+# Archivos y directorios a ignorar en la construcción de Docker
+
+# Target directory (build output)
+target/
+
+# IDE files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Maven
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation
+*.md
+README.md
+docs/
+
+# Docker files (no necesarios dentro del contenedor)
+Dockerfile*
+docker-compose*
+.dockerignore

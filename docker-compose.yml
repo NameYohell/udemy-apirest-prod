@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: mysql-apirest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mipasswordsegura
@@ -12,16 +12,46 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: udemy-apirest-app
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - app-network
 
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin-apirest
     restart: always
     ports:
       - "8080:80"
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+    depends_on:
+      - mysql
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
